@@ -4,7 +4,17 @@ export const regsuccess = data=> ({type:REGSUCCESS,data})
 export const regerr = data=>({type:REGERR,data})
 
 // 异步action creator
-export const register = ({username,password,type})=>{
+export const register = ({username,password,type,rePwd})=>{
+      // 进行表单验证
+      if(!username){
+         return  regerr({errMsg:"请输入用户名"})
+      }
+      if(!password){
+        return regerr({errMsg:"请输入密码"})
+      }
+      if(password!==rePwd){
+        return regerr({errMsg:"两次密码不一致"})
+      }
       return dispatch=>{
           reqRegister({username,password,type})
             .then(({data})=>{
