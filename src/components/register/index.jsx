@@ -1,13 +1,14 @@
 import React,{Component} from "react"
 import {NavBar,WingBlank,List,InputItem,WhiteSpace,Radio,Button} from "antd-mobile"
 import  Logo from "../logo"
+import {reqRegister} from "../../api"
 
 const {Item} = List
 class Register extends Component{
   state ={
     isBoss:true,
     username:"",
-    pwd:"",
+    password:"",
     rePwd:""
   }
   hasChange =(type,value)=>{
@@ -15,9 +16,10 @@ class Register extends Component{
          [type]:value
        })
   }
-  messageRegister = ()=>{
-    const {isBoss,username,pwd,rePwd} =this.state
-    console.log(isBoss,username,pwd,rePwd)
+  messageRegister = async()=>{
+    const {isBoss,username,password} =this.state
+    const result = await reqRegister({username,password,type:(isBoss?"laoban":"dashen")})
+    console.log(result)
   }
   goLogin = ()=>{
      this.props.history.replace("/login")
@@ -34,7 +36,7 @@ class Register extends Component{
           <List>
             <InputItem onChange={ value =>this.hasChange("username",value) }>用户名:</InputItem>
             <WhiteSpace/>
-            <InputItem type="password" onChange={value => this.hasChange("pwd",value) }>密 &nbsp;&nbsp;码:</InputItem>
+            <InputItem type="password" onChange={value => this.hasChange("password",value) }>密 &nbsp;&nbsp;码:</InputItem>
             <WhiteSpace/>
             <InputItem type="password" onChange={value => this.hasChange("rePwd",value)} >确认密码:</InputItem>
             <WhiteSpace/>
