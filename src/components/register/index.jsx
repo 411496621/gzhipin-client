@@ -2,6 +2,7 @@ import React,{Component} from "react"
 import {NavBar,WingBlank,List,InputItem,WhiteSpace,Radio,Button} from "antd-mobile"
 import  Logo from "../logo"
 import PropTypes from "prop-types"
+import {Redirect} from "react-router-dom";
 
 const {Item} = List
 class Register extends Component{
@@ -33,6 +34,10 @@ class Register extends Component{
   render(){
     const {isBoss} = this.state
     const {errMsg} = this.props.user
+    const path = this.props.user.redirectTo
+    if(path){
+      return <Redirect to={path} />
+    }
     return(
       <div>
         <NavBar>硅谷直聘</NavBar>

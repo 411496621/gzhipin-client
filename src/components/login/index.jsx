@@ -2,6 +2,7 @@ import React,{Component} from "react"
 import {NavBar,List,InputItem,WhiteSpace,WingBlank,Button} from "antd-mobile"
 import Logo from "../logo"
 import PropTypes from "prop-types"
+import {Redirect} from "react-router-dom"
 
 class Login extends Component{
   static propTypes ={
@@ -27,6 +28,11 @@ class Login extends Component{
 
   render(){
     const {errMsg} = this.props.user
+    const path = this.props.user.redirectTo
+    if(path){
+      return <Redirect to={path} />
+    }
+
     return(
       <div>
         <NavBar>硅谷直聘</NavBar>
