@@ -1,11 +1,20 @@
 import {combineReducers} from 'redux'
+import {REGSUCCESS,REGERR} from "./action-types"
+const userStateInit = {
+  username:"",
+  type:"",
+  _id:"",
+  errMsg:""
+}
 
-const xxxStateInit = 0
-
-function reducerA(previousXXXState =xxxStateInit,action) {
-     switch (action) {
+function userInfo(previousState =userStateInit,action) {
+     switch (action.type) {
+       case REGSUCCESS:
+         return action.data
+       case REGERR:
+         return {...userStateInit,...action.data}
        default:
-         return previousXXXState
+         return previousState
      }
 }
 
@@ -19,6 +28,5 @@ function reducerB(previousYYYState=yyyStateInit,action) {
 }
 
 export default combineReducers({
-  reducerA,
-  reducerB
+  userInfo,
 })

@@ -1,10 +1,13 @@
 import React,{Component} from "react"
 import {NavBar,WingBlank,List,InputItem,WhiteSpace,Radio,Button} from "antd-mobile"
 import  Logo from "../logo"
-import {reqRegister} from "../../api"
-
+import PropTypes from "prop-types"
 const {Item} = List
 class Register extends Component{
+  static propTypes ={
+    user:PropTypes.object.isRequired,
+    register:PropTypes.func.isRequired
+  }
   state ={
     isBoss:true,
     username:"",
@@ -18,8 +21,8 @@ class Register extends Component{
   }
   messageRegister = async()=>{
     const {isBoss,username,password} =this.state
-    const result = await reqRegister({username,password,type:(isBoss?"laoban":"dashen")})
-    console.log(result)
+    this.props.register({username,password,type:(isBoss?"laoban":"dashen")})
+
   }
   goLogin = ()=>{
      this.props.history.replace("/login")
