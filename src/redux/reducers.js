@@ -10,7 +10,7 @@ const userStateInit = {
 function userInfo(previousState =userStateInit,action) {
      switch (action.type) {
        case REGSUCCESS:
-         return action.data
+         return {...action.data,errMsg:""}
        case REGERR:
          return {...userStateInit,...action.data}
        default:

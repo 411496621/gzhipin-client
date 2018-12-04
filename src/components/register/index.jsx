@@ -2,7 +2,6 @@ import React,{Component} from "react"
 import {NavBar,WingBlank,List,InputItem,WhiteSpace,Radio,Button} from "antd-mobile"
 import  Logo from "../logo"
 import PropTypes from "prop-types"
-import "./index.less"
 
 const {Item} = List
 class Register extends Component{

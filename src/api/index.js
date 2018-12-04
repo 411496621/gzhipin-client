@@ -2,5 +2,7 @@ import ajax from "./ajax"
 
 const prefix =""
 
-//   注册功能POST请求
+// 定义注册请求
 export const reqRegister = data => ajax(`${prefix}/register`,"POST",data)
+// 定义登陆请求
+export const reqLogin = data => ajax(`${prefix}/login`,"POST",data)

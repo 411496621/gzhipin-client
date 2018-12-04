@@ -1,4 +1,4 @@
-import {reqRegister} from "../api"
+import {reqRegister,reqLogin} from "../api"
 import {REGERR,REGSUCCESS} from "./action-types"
 export const regsuccess = data=> ({type:REGSUCCESS,data})
 export const regerr = data=>({type:REGERR,data})
@@ -29,4 +29,28 @@ export const register = ({username,password,type,rePwd})=>{
                     dispatch(regerr({errMsg:"网络不稳定,请刷新重试"}))
             })
       }
+}
+
+export const login = ({username,password}) =>{
+     if(!username){
+       return regerr({errMsg:"请输入用户名"})
+     }
+     if(!password){
+       return regerr({errMsg:"请输入密码"})
+     }
+     return dispatch=>{
+        reqLogin({username,password})
+          .then(({data})=>{
+              console.log(data)
+              if(data.code===0){ // 请求成功 可以登录
+                 dispatch( regsuccess(data.data))
+              }else{ //
+                 dispatch( regerr({errMsg:data.msg}) )
+              }
+          })
+          .catch(err=>{
+               console.log(err)
+               dispatch( regerr({errMsg:"网络不稳定 请刷新重试"}) )
+          })
+     }
 }
