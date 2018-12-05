@@ -15,7 +15,7 @@ class Main extends Component{
     {path:"/laoban",title:"大神列表",icon:"laoban",iconText:"大神"},
     {path:"/dashen",title:"老板列表",icon:"dashen",iconText:"老板"},
     {path:"/message",title:"消息列表",icon:"message",iconText:"消息"},
-    {path:"/personal",title:"个人中心",icon:"laoban",iconText:"个人"}
+    {path:"/personal",title:"个人中心",icon:"personal",iconText:"个人"}
     ]
   render(){
     const userid = Cookie.get("userid")

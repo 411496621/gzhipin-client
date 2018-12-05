@@ -27,12 +27,13 @@ class Login extends Component{
   }
 
   render(){
+
     const {errMsg} = this.props.user
     const path = this.props.user.redirectTo
+
     if(path){
       return <Redirect to={path} />
     }
-
     return(
       <div>
         <NavBar>硅谷直聘</NavBar>
