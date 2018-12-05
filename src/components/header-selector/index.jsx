@@ -17,7 +17,7 @@ class HeaderSelector extends Component{
   }
   render(){
     const data = Array.from(new Array(20)).map((_val, i) => ({
-      icon: require(`./images/头像${i+1}.png`),
+      icon: require(`../../assets/images/头像${i+1}.png`),
       text: `头像${i+1}`,
     }))
     const {header} =this.state
