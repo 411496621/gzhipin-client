@@ -32,6 +32,7 @@ class Register extends Component{
 
 
   render(){
+    console.log(this.props.user)
     const {isBoss} = this.state
     const {errMsg} = this.props.user
     const path = this.props.user.redirectTo

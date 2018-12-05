@@ -5,13 +5,19 @@ const userStateInit = {
   type:"",
   _id:"",
   errMsg:"",
+  header:"",
+  company:"",
+  info:"",
+  post:"",
+  salary:"",
   redirectTo:""
 }
 
 function userInfo(previousState =userStateInit,action) {
+
      switch (action.type) {
        case REGSUCCESS:
-         return {...action.data,errMsg:"",redirectTo:getRedirectPath(action.data.type,action.head)}
+         return {...action.data,redirectTo:getRedirectPath(action.data.type,action.data.header)}
        case REGERR:
          return {...userStateInit,...action.data}
        default:
@@ -20,7 +26,6 @@ function userInfo(previousState =userStateInit,action) {
 }
 const getRedirectPath = (type,head)=>{
      let path =""
-     console.log(type)
      if(type==="laoban"){
        path = "/laoban"
      }

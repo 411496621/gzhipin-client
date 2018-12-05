@@ -1,6 +1,6 @@
 import React,{Component} from "react"
-import Laobaninfo from "../laobaninfo"
-import DashenInfo from "../dasheninfo"
+import Laobaninfo from "../../container/laoban-info"
+import DashenInfo from "../../container/dashen-info"
 import {Route} from "react-router-dom"
 
 class Main extends Component{
