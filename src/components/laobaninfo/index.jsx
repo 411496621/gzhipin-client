@@ -34,8 +34,7 @@ class Laobaninfo extends Component{
   render(){
     const {redirectTo} = this.props.user
     if(redirectTo==="/laoban"){
-       console.log("111")
-       return  <Redirect to={redirectTo} />
+      return  <Redirect to={redirectTo} />
     }
     const {errMsg} = this.props.user
     return(
