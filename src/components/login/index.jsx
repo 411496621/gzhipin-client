@@ -20,6 +20,7 @@ class Login extends Component{
   }
   goLogin = ()=>{
      const {username,password} = this.state
+     // 跳转到/laoban 或者/dashen
      this.props.login({username,password})
   }
   goRegister = ()=>{
@@ -27,7 +28,6 @@ class Login extends Component{
   }
 
   render(){
-
     const {errMsg} = this.props.user
     const path = this.props.user.redirectTo
 

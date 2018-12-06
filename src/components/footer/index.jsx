@@ -6,13 +6,14 @@ import "./index.less"
 const Item = TabBar.Item
 class Foot extends Component{
  static propTypes ={
-   navList:PropTypes.array.isRequired
+   navList:PropTypes.array.isRequired,
+   type:PropTypes.string.isRequired
  }
   redirectTo = path=>{
       this.props.history.replace(path)
   }
   render(){
-    const type ="laoban"
+    const type = this.props.type
     const path = type==="laoban"?"/dashen":"/laoban"
     const newList = this.props.navList.filter((item,index)=>item.path!==path)
     return(

@@ -29,6 +29,7 @@ class DashenInfo extends Component{
     })
   }
   render(){
+    console.log()
     const {redirectTo} = this.props.user
     if(redirectTo==="/dashen"){
       return  <Redirect to={redirectTo} />

@@ -1,5 +1,12 @@
 import {combineReducers} from 'redux'
-import {REGSUCCESS,REGERR} from "./action-types"
+import {REGSUCCESS,
+  REGERR,
+  GETINFOSUCCESS,
+  GETINFOFAIL,
+  USERLISTFULL,
+  USERLISTEMPTY,
+  CLEARUSERINFO,
+  CLEARUSERLIST} from "./action-types"
 const userStateInit = {
   username:"",
   type:"",
@@ -20,6 +27,12 @@ function userInfo(previousState =userStateInit,action) {
          return {...action.data,redirectTo:getRedirectPath(action.data.type,action.data.header)}
        case REGERR:
          return {...userStateInit,...action.data}
+       case GETINFOSUCCESS:
+         return {...action.data,redirectTo:getRedirectPath(action.data.type,action.data.header)}
+       case GETINFOFAIL:
+         return {...userStateInit,...action.data}
+       case CLEARUSERINFO:
+         return previousState
        default:
          return previousState
      }
@@ -38,15 +51,21 @@ const getRedirectPath = (type,head)=>{
      return path
 }
 
-const yyyStateInit = {}
-
-function reducerB(previousYYYState=yyyStateInit,action) {
-     switch (action) {
+const userListInit = []
+function userList(previousState=userListInit,action) {
+     switch (action.type) {
+       case USERLISTFULL:
+         return action.data
+       case USERLISTEMPTY:
+         return previousState
+       case CLEARUSERLIST:
+         return previousState
        default:
-         return previousYYYState
+         return previousState
      }
 }
 
 export default combineReducers({
   userInfo,
+  userList
 })

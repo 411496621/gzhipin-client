@@ -1,7 +1,21 @@
-import {reqRegister,reqLogin,reqUpdate} from "../api"
-import {REGERR,REGSUCCESS} from "./action-types"
+import{
+  reqRegister,
+  reqLogin,
+  reqUpdate,
+  reqUserInfo,
+  reqUserList
+} from "../api"
+import {REGERR,REGSUCCESS,GETINFOSUCCESS,GETINFOFAIL,USERLISTFULL,USERLISTEMPTY,CLEARUSERINFO,CLEARUSERLIST} from "./action-types"
 export const regsuccess = data=> ({type:REGSUCCESS,data})
 export const regerr = data=>({type:REGERR,data})
+export const getInfoSuccess = data=> ({type:GETINFOSUCCESS,data})
+export const getInfoFail = data=> ({type:GETINFOFAIL,data})
+export const userListFull = data=>({type:USERLISTFULL,data})
+export const userListEmpty = data=>({type:USERLISTEMPTY,data})
+
+// 清空 redux状态
+export const clearUserInfo =()=>({type:CLEARUSERINFO})
+export const clearUserList =()=>({type:CLEARUSERLIST})
 
 // 异步action creator
 export const register = ({username,password,type,rePwd})=>{
@@ -74,6 +88,7 @@ export const update = ({company,info,post,salary,header,type})=>{
      return dispatch=>{
          reqUpdate({company,info,post,salary,header})
            .then(({data})=>{
+
              if(data.code===0){
                dispatch(regsuccess(data.data))
              }else{
@@ -84,4 +99,38 @@ export const update = ({company,info,post,salary,header,type})=>{
                dispatch(regerr({errMsg:"网络不稳定 请刷新重试"}))
            })
      }
+}
+
+export const getUserInfo = ()=>{
+    return dispatch=>{
+        reqUserInfo()
+          .then(({data})=>{
+            console.log(data)
+            if(data.code===0){
+              dispatch(getInfoSuccess(data.data))
+            }else{
+              dispatch(getInfoFail({errMsg:data.msg}))
+            }
+          })
+          .catch(()=>{
+              dispatch(getInfoFail({errMsg:"网络不稳定 请刷新重试"}))
+          })
+    }
+}
+
+export const getUserList = type=>{
+  return dispatch=>{
+    reqUserList(type)
+      .then(({data})=>{
+        console.log(data)
+        if(data.code===0){
+          dispatch(userListFull(data.data))
+        }else{
+          dispatch(userListEmpty({errMsg:data.msg}))
+        }
+      })
+      .catch(()=>{
+        dispatch(userListEmpty({errMsg:"网络不稳定 请刷新重试"}))
+      })
+  }
 }
