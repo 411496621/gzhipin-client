@@ -49,7 +49,6 @@ class Main extends Component{
        return  <Redirect to={this.props.user.redirectTo}/>
     }
     const currentList = this.navList.find((item,index)=>path===item.path)
-
     return(
        <div>
          { currentList?<NavBar className="header" >{currentList.title}</NavBar>:null }

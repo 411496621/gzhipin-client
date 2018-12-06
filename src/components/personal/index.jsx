@@ -2,14 +2,15 @@ import React,{Component} from "react"
 import { Result,List,Button,WhiteSpace,Modal} from 'antd-mobile'
 import cookie from "js-cookie"
 import PropTypes from "prop-types"
+import {clearInfo, clearList} from "../../redux/actions";
 const Item = List.Item
 const Brief = Item.Brief
 const alert = Modal.alert
 class Personal extends Component{
   static propTypes ={
     user:PropTypes.object.isRequired,
-    clearUserInfo:PropTypes.func.isRequired,
-    clearUserList:PropTypes.func.isRequired
+    clearInfo:PropTypes.func.isRequired,
+    clearList:PropTypes.func.isRequired
   }
   logout = ()=>{
     alert('退出登录', '你确定要退出登录吗???', [
@@ -18,12 +19,10 @@ class Personal extends Component{
              // 清除cookie
              cookie.remove("userid")
              // 清除redux相关的状态
-             console.log(this.props.clearUserInfo)
-             this.props.clearUserInfo()
-             this.props.clearUserList()
-             console.log(this.props.user)
+             this.props.clearInfo()
+             this.props.clearList()
              //  跳转到登录页面
-             /*this.props.history.replace("/login")*/
+             this.props.history.replace("/login")
       }},
     ])
 

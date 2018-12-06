@@ -1,12 +1,13 @@
 import {combineReducers} from 'redux'
-import {REGSUCCESS,
+import {
+  REGSUCCESS,
   REGERR,
   GETINFOSUCCESS,
   GETINFOFAIL,
   USERLISTFULL,
   USERLISTEMPTY,
-  CLEARUSERINFO,
-  CLEARUSERLIST} from "./action-types"
+  CLEARLIST,
+  CLEARINFO} from "./action-types"
 const userStateInit = {
   username:"",
   type:"",
@@ -19,9 +20,7 @@ const userStateInit = {
   salary:"",
   redirectTo:""
 }
-
 function userInfo(previousState =userStateInit,action) {
-
      switch (action.type) {
        case REGSUCCESS:
          return {...action.data,redirectTo:getRedirectPath(action.data.type,action.data.header)}
@@ -31,8 +30,8 @@ function userInfo(previousState =userStateInit,action) {
          return {...action.data,redirectTo:getRedirectPath(action.data.type,action.data.header)}
        case GETINFOFAIL:
          return {...userStateInit,...action.data}
-       case CLEARUSERINFO:
-         return previousState
+       case CLEARINFO:
+         return userStateInit
        default:
          return previousState
      }
@@ -57,9 +56,9 @@ function userList(previousState=userListInit,action) {
        case USERLISTFULL:
          return action.data
        case USERLISTEMPTY:
-         return previousState
-       case CLEARUSERLIST:
-         return previousState
+         return userListInit
+       case CLEARLIST:
+         return userListInit
        default:
          return previousState
      }

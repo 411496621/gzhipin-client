@@ -5,7 +5,7 @@ import{
   reqUserInfo,
   reqUserList
 } from "../api"
-import {REGERR,REGSUCCESS,GETINFOSUCCESS,GETINFOFAIL,USERLISTFULL,USERLISTEMPTY,CLEARUSERINFO,CLEARUSERLIST} from "./action-types"
+import {REGERR,REGSUCCESS,GETINFOSUCCESS,GETINFOFAIL,USERLISTFULL,USERLISTEMPTY,CLEARINFO,CLEARLIST} from "./action-types"
 export const regsuccess = data=> ({type:REGSUCCESS,data})
 export const regerr = data=>({type:REGERR,data})
 export const getInfoSuccess = data=> ({type:GETINFOSUCCESS,data})
@@ -14,8 +14,8 @@ export const userListFull = data=>({type:USERLISTFULL,data})
 export const userListEmpty = data=>({type:USERLISTEMPTY,data})
 
 // 清空 redux状态
-export const clearUserInfo =()=>({type:CLEARUSERINFO})
-export const clearUserList =()=>({type:CLEARUSERLIST})
+export const clearInfo = ()=> ({type:CLEARINFO})
+export const clearList = ()=> ({type:CLEARLIST})
 
 // 异步action creator
 export const register = ({username,password,type,rePwd})=>{
@@ -55,7 +55,6 @@ export const login = ({username,password}) =>{
      return dispatch=>{
         reqLogin({username,password})
           .then(({data})=>{
-              console.log(data)
               if(data.code===0){ // 请求成功 可以登录
                  dispatch( regsuccess(data.data))
               }else{ //
@@ -122,7 +121,6 @@ export const getUserList = type=>{
   return dispatch=>{
     reqUserList(type)
       .then(({data})=>{
-        console.log(data)
         if(data.code===0){
           dispatch(userListFull(data.data))
         }else{
