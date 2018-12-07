@@ -6,6 +6,8 @@ import Laoban from "../../container/laoban"
 import Message from "../message"
 import Personal from "../../container/personal"
 import Footer from "../footer"
+import Chat from "../../container/chat"
+
 import {Route,Redirect} from "react-router-dom"
 import Cookie from "js-cookie"
 import {NavBar,Icon} from "antd-mobile"
@@ -59,6 +61,7 @@ class Main extends Component{
            <Route path="/dashen" component={Dashen} />
            <Route path="/message" component={Message} />
            <Route path="/personal" component={Personal} />
+           <Route path="/chat/:id" component={Chat} />
          </div>
          {currentList?<Footer class="footer" navList={this.navList} type={this.props.user.type} />:null}
        </div>

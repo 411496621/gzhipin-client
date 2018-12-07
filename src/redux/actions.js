@@ -5,6 +5,7 @@ import{
   reqUserInfo,
   reqUserList
 } from "../api"
+import io from 'socket.io-client'
 import {REGERR,REGSUCCESS,GETINFOSUCCESS,GETINFOFAIL,USERLISTFULL,USERLISTEMPTY,CLEARINFO,CLEARLIST} from "./action-types"
 export const regsuccess = data=> ({type:REGSUCCESS,data})
 export const regerr = data=>({type:REGERR,data})
@@ -44,7 +45,6 @@ export const register = ({username,password,type,rePwd})=>{
             })
       }
 }
-
 export const login = ({username,password}) =>{
      if(!username){
        return regerr({errMsg:"请输入用户名"})
@@ -67,7 +67,6 @@ export const login = ({username,password}) =>{
           })
      }
 }
-
 export const update = ({company,info,post,salary,header,type})=>{
      if(!header){
        return regerr({errMsg:"请选择头像"})
@@ -99,7 +98,6 @@ export const update = ({company,info,post,salary,header,type})=>{
            })
      }
 }
-
 export const getUserInfo = ()=>{
     return dispatch=>{
         reqUserInfo()
@@ -116,7 +114,6 @@ export const getUserInfo = ()=>{
           })
     }
 }
-
 export const getUserList = type=>{
   return dispatch=>{
     reqUserList(type)
@@ -131,4 +128,19 @@ export const getUserList = type=>{
         dispatch(userListEmpty({errMsg:"网络不稳定 请刷新重试"}))
       })
   }
+}
+
+// 发送输入的消息
+
+// 连接服务器, 得到代表连接的socket对象
+const socket = io('ws://localhost:5000')
+// 绑定'receiveMessage'的监听, 来接收服务器发送的消息
+socket.on('receiveMsg', function (data) {
+  console.log('浏览器端接收到消息:', data)
+})
+// 向服务器发送消息
+export const sendMessage = ({message,from,to})=>{
+    return dispatch=>{
+       socket.emit('sendMsg', {message,from,to})
+    }
 }
