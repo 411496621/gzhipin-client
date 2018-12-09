@@ -7,7 +7,11 @@ import {
   USERLISTFULL,
   USERLISTEMPTY,
   CLEARLIST,
-  CLEARINFO} from "./action-types"
+  CLEARINFO,
+  CHARLISTFAIL,
+  CHARLISTOK,
+  UPDATECHARLIST
+} from "./action-types"
 const userStateInit = {
   username:"",
   type:"",
@@ -63,8 +67,25 @@ function userList(previousState=userListInit,action) {
          return previousState
      }
 }
+const charListInit = {users:{},chatMsgs:[]}
+function charList(previousState=charListInit,action) {
+    switch (action.type) {
+      case CHARLISTOK:
+        return action.data
+      case CHARLISTFAIL:
+        return charListInit
+      case UPDATECHARLIST:
+        return ({
+          users:previousState.users,
+          chatMsgs:[...previousState.chatMsgs,action.data]
+        })
+      default:
+        return previousState
+    }
+}
 
 export default combineReducers({
   userInfo,
-  userList
+  userList,
+  charList
 })

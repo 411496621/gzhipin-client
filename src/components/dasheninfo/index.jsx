@@ -37,7 +37,7 @@ class DashenInfo extends Component{
     const {errMsg} = this.props.user
     return(
       <div>
-        <NavBar>大神信息完善</NavBar>
+        <NavBar className="dashen-info">大神信息完善</NavBar>
         <HeaderSelector getHeader={this.getHeader} />
         <p className="err-msg">{errMsg}</p>
         <InputItem onChange={value=>this.handleChange("post",value)}>求职岗位:</InputItem>

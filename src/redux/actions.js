@@ -3,10 +3,13 @@ import{
   reqLogin,
   reqUpdate,
   reqUserInfo,
-  reqUserList
+  reqUserList,
+  reqChatList
 } from "../api"
 import io from 'socket.io-client'
-import {REGERR,REGSUCCESS,GETINFOSUCCESS,GETINFOFAIL,USERLISTFULL,USERLISTEMPTY,CLEARINFO,CLEARLIST} from "./action-types"
+import {REGERR,REGSUCCESS,GETINFOSUCCESS,
+  GETINFOFAIL,USERLISTFULL, USERLISTEMPTY,
+  CLEARINFO,CLEARLIST,CHARLISTOK,CHARLISTFAIL,UPDATECHARLIST} from "./action-types"
 export const regsuccess = data=> ({type:REGSUCCESS,data})
 export const regerr = data=>({type:REGERR,data})
 export const getInfoSuccess = data=> ({type:GETINFOSUCCESS,data})
@@ -17,6 +20,11 @@ export const userListEmpty = data=>({type:USERLISTEMPTY,data})
 // 清空 redux状态
 export const clearInfo = ()=> ({type:CLEARINFO})
 export const clearList = ()=> ({type:CLEARLIST})
+
+//  charlist 同步
+export const charListOk = data=>({type:CHARLISTOK,data})
+export const charListFail = ()=>({type:CHARLISTFAIL})
+export const updateCharList = data=>({type:UPDATECHARLIST,data})
 
 // 异步action creator
 export const register = ({username,password,type,rePwd})=>{
@@ -102,7 +110,6 @@ export const getUserInfo = ()=>{
     return dispatch=>{
         reqUserInfo()
           .then(({data})=>{
-            console.log(data)
             if(data.code===0){
               dispatch(getInfoSuccess(data.data))
             }else{
@@ -135,12 +142,33 @@ export const getUserList = type=>{
 // 连接服务器, 得到代表连接的socket对象
 const socket = io('ws://localhost:5000')
 // 绑定'receiveMessage'的监听, 来接收服务器发送的消息
-socket.on('receiveMsg', function (data) {
-  console.log('浏览器端接收到消息:', data)
-})
-// 向服务器发送消息
+
+// 向服务器发送消息  接收到服务器返回后的消息 更新聊天消息
 export const sendMessage = ({message,from,to})=>{
     return dispatch=>{
        socket.emit('sendMsg', {message,from,to})
+       if(!socket.isFirst){
+         socket.isFirst = true
+         socket.on('receiveMsg', function (data) {
+            // 分发action对象
+           dispatch(updateCharList(data))
+         })
+       }
     }
+}
+// 定义获取charlist请求
+export const getCharList =()=>{
+   return dispatch=>{
+     reqChatList()
+       .then(({data})=>{
+          if(data.code===0){
+            dispatch(charListOk(data.data))
+          }else{
+            dispatch(charListFail())
+          }
+       })
+       .catch(()=>{
+           dispatch(charListFail())
+       })
+   }
 }

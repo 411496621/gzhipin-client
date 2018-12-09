@@ -13,3 +13,6 @@ export const reqUserInfo = ()=> ajax(`${prefix}/user`)
 
 // 定义发送获取用户列表的请求
 export const reqUserList =  type=> ajax(`${prefix}/userlist`,"GET",{type})
+
+// 定义发送获取聊天列表的请求
+export const reqChatList = ()=>ajax(`${prefix}/msglist`,"GET")

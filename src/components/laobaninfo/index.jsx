@@ -1,9 +1,9 @@
 import React,{Component} from "react"
-import {NavBar,Grid,InputItem,TextareaItem,Button} from "antd-mobile"
+import {NavBar,InputItem,TextareaItem,Button} from "antd-mobile"
 import  HeaderSelector from "../header-selector"
 import PropTypes from "prop-types"
 import {Redirect} from "react-router-dom"
-
+import "./index.less"
 class Laobaninfo extends Component{
   static propTypes ={
     user:PropTypes.object.isRequired,
@@ -39,7 +39,7 @@ class Laobaninfo extends Component{
     const {errMsg} = this.props.user
     return(
       <div>
-         <NavBar>老板信息完善</NavBar>
+         <NavBar className="laoban-header">老板信息完善</NavBar>
          <HeaderSelector getHeader={this.getHeader} />
          <p className="err-msg">{errMsg}</p>
          <InputItem onChange={value=>this.handleChange("post",value)}>招聘职位:</InputItem>

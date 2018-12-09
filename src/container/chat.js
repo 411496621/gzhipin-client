@@ -3,6 +3,6 @@ import Chat from "../components/chat"
 import {sendMessage} from "../redux/actions"
 
 export default connect(
-  state=>({}),
+  state=>({charList:state.charList}),
   {sendMessage}
 )(Chat)

@@ -3,7 +3,7 @@ import Laobaninfo from "../../container/laoban-info"
 import DashenInfo from "../../container/dashen-info"
 import Dashen from "../../container/dashen"
 import Laoban from "../../container/laoban"
-import Message from "../message"
+import Message from "../../container/message"
 import Personal from "../../container/personal"
 import Footer from "../footer"
 import Chat from "../../container/chat"
@@ -14,10 +14,16 @@ import {NavBar,Icon} from "antd-mobile"
 import PropTypes from "prop-types"
 import "./index.less"
 
+
 class Main extends Component{
   static propTypes={
     user:PropTypes.object.isRequired,
-    getUserInfo:PropTypes.func.isRequired
+    getUserInfo:PropTypes.func.isRequired,
+    getCharList:PropTypes.func.isRequired
+  }
+  componentDidMount(){
+    // 发送请求
+    this.props.getCharList()
   }
 
   navList = [
