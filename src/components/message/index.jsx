@@ -2,6 +2,8 @@ import React,{Component} from "react"
 import {List,Badge} from "antd-mobile"
 import PropTypes from "prop-types"
 import Cookies from "js-cookie"
+import QueueAnim from 'rc-queue-anim'
+
 const Item =List.Item
 const Brief = Item.Brief
 class Message extends Component{
@@ -54,21 +56,21 @@ class Message extends Component{
     })
     const chatUsers = Object.values(otherUsers)
     return(
-      <div>
+      <QueueAnim  delay={300}>
         {
           chatUsers.map((item,index)=>{
             return (
               <Item key={index}
-                onClick={this.goChat.bind(null,item.id)}
-                arrow="horizontal"
-                thumb= {require(`../../assets/images/头像${item.header==="undefined"?1:item.header}.png`)}
+                    onClick={this.goChat.bind(null,item.id)}
+                    arrow="horizontal"
+                    thumb= {require(`../../assets/images/头像${item.header==="undefined"?1:item.header}.png`)}
                     extra={<Badge text={item.unRead}  />}
               >{item.message}<Brief>{item.username}</Brief>
               </Item>
             )
           })
         }
-      </div>
+      </QueueAnim>
     )
   }
 }
